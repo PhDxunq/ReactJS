@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
+import './counter_css.css';
 
-// Counter component
 const Count = () => {
-  // State for managing count
+
   const [count, setCount] = useState(0);
 
   const increment = () => {
@@ -19,11 +19,13 @@ const Count = () => {
 
   return (
     <div>
-      <h2>Counter</h2>
-      <p>Count: {count}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
+      <h1>Counter</h1>
+      <h1>{count}</h1>
+      <div className='btn-center'>
+          <button onClick={increment} className='btn-inc'>Increment</button>
+          <button onClick={decrement} className='btn-dec'>Decrement</button>
+          <button onClick={reset} className='btn-res'>Reset</button>
+      </div>
     </div>
   );
 };
@@ -36,5 +38,4 @@ function Counter(){
     </div>
   );
 };
-
 export default Counter;
