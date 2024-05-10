@@ -1,0 +1,31 @@
+ul{
+    list-style: none;
+}
+
+.text {
+    text-decoration: none;
+}
+
+.checkbox:checked + .text {
+    text-decoration:line-through;
+}
+
+.checkbox:checked {
+    background-color: red;
+}
+
+.pd-20 {
+    padding: 20px;   
+}
+
+.w-90{
+    width: 90%;
+}
+
+h1{
+    text-align: center;
+}
+
+.bordered {
+    border: 1px solid black;
+}
