@@ -1,0 +1,9 @@
+{
+    "company": "SNEAKER COMPANY",
+    "title": "Fall Limited Edition",
+    "products": "Sneakers",
+    "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut error consequatur recusandae asperiores alias at iste in voluptatem perspiciatis. Molestias, enim dolore facilis fuga illum nemo eaque placeat asperiores nostrum?",
+    "salePrice": "$125",
+    "percent" : "50%",
+    "price": "$250"
+}

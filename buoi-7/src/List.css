@@ -1,0 +1,12 @@
+ul{
+    list-style: none;
+}
+
+.text {
+    text-decoration: none;
+}
+
+.checkbox:checked + .text {
+    text-decoration:line-through;
+    color: red;
+}
