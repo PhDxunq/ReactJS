@@ -1,11 +1,6 @@
 import './App.css';
 import { useState } from 'react';
 import React from "react";
-import Table from '@mui/material/Table';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Characters from './Characters';
 import SaveCharacter from './SaveCharacter';
 function App() {
@@ -25,18 +20,17 @@ function App() {
     <>
       <SaveCharacter prop={{ characters, setCharacters,updateCharacter,setUpdateCharacter}}></SaveCharacter>
       <h2>One Piece Characters</h2>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ width: "10%" }}>ID</TableCell>
-              <TableCell sx={{ width: "35%", textAlign: "center" }}>Name</TableCell>
-              <TableCell sx={{ width: "35%", textAlign: "center" }}>Bounty</TableCell>
-              <TableCell sx={{ width: "20%", textAlign: "center" }}>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-      </TableContainer>
+
+        <table>
+          <th>
+            <tr>
+              <td sx={{ width: "10%" }}>ID</td>
+              <td sx={{ width: "35%", textAlign: "center" }}>Name</td>
+              <td sx={{ width: "35%", textAlign: "center" }}>Bounty</td>
+              <td sx={{ width: "20%", textAlign: "center" }}>Actions</td>
+            </tr>
+          </th>
+        </table>
       {characters.map((item) => {
         return (
           <>
