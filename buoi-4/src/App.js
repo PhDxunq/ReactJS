@@ -1,11 +1,16 @@
 import './App.css';
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Pokemon from './Pokemon';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import pikachuImage from './image/pikachu.png';
 import raichuImage from './image/raichu.png';
 import mewtwoImage from './image/meotwo.png';
 import PokemonList from './PokemonList';
+import PokemonContext from './PokemonContext';
+import CatchPokemon from './CatchPokemon';
+import Pokedex from './Pokedex';
+
 
 function App() {
   const [pokemons, setPokemons] = useState([
@@ -17,44 +22,40 @@ function App() {
   const [caughtPokemons, setcaughtPokemons] = useState([]);
   const [pokeballs, setpokeballs] = useState(50);
   
-  const handleCatchPokemon = (pokemon) => {
-    const catchRate = pokemon.catchRate;
-    const namePokemon = pokemon.name;
-    console.log(namePokemon);
-    console.log(catchRate);
-    const randomCatchRate = Math.random() * 100;
-    console.log(randomCatchRate);
-    if (randomCatchRate <= catchRate) {
-        setcaughtPokemons([...caughtPokemons, pokemon]);
-        console.log(caughtPokemons);
-        setpokeballs(pokeballs - 1);
-        alert(`Bắt thành công ${namePokemon}`);
-    } else {
-        alert(`Bắt thất bại ${namePokemon}`);
-        setpokeballs(pokeballs - 1);
-    }
-}
+
   return (
-    <div className='container-fluid'>
-      <div >
-        <ul className='d-flex'>
-          <li><h2>Pokemon React App</h2></li>
-          <li> Pokemon </li>
-          <li> Pokedex </li>
-        </ul>
-      </div>
-      <div className='row'>
-        <div className='col-4 d-flex justify-content-center align-items-center '>
-              <p className='pd-20'>Total Pokemon: {pokemons.length}</p>
-              <p className='pd-20'>Pokemon Caught: {caughtPokemons.length}</p>
-              <p className='pd-20'>Total Pokeballs: {pokeballs}</p>
+    <PokemonContext.Provider value={{ pokemons, setPokemons, caughtPokemons, setcaughtPokemons, pokeballs, setpokeballs }} >
+      <Router>
+        <div className='container-fluid'>
+        <div >
+          <nav>
+          <ul className='d-flex'>
+            <li>
+              <h2>Pokemon React App</h2>
+            </li>
+            <li>
+              <Link to='/'>Pokemon</Link>
+            </li>
+            <li>
+              <Link to='/Pokedex'>Pokedex</Link>
+            </li>
+          </ul>
+          </nav>
         </div>
-      </div>
-      <div>
-        <PokemonList key={pokemons.id} pokemons={pokemons} onCatch ={handleCatchPokemon}/>
-      </div>
-  
-    </div>
+        <div className='row'>
+          <div className='col-4 d-flex justify-content-center align-items-center '>
+                <p className='pd-20'>Total Pokemon: {pokemons.length}</p>
+                <p className='pd-20'>Pokemon Caught: {caughtPokemons.length}</p>
+                <p className='pd-20'>Total Pokeballs: {pokeballs}</p>
+          </div>
+        </div>
+          <Routes>
+              <Route path="/" element={<PokemonList></PokemonList>}/>
+              <Route path="Pokedex" element={<Pokedex />} />
+          </Routes>
+        </div>
+      </Router>
+    </PokemonContext.Provider>
   );
 }
 

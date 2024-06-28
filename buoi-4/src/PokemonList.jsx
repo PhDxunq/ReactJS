@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import Pokemon from './Pokemon';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import PokemonContext from "./PokemonContext";
 
-
-const PokemonList = ({ pokemons,onCatch }) => {
+const PokemonList = (props) => {
+    const context = useContext(PokemonContext);
+    const pokemons = context.pokemons;
   return (
     <div className='row'>
         <div className='col-4 d-flex align-items-center'>
         {
-        pokemons.map((pokemons) => (
+        pokemons.map((pokemon) => (
           <table border={1} className='mg-20'>
-            <Pokemon key={pokemons.name} pokemons={pokemons} onCatch ={(pokemons) => onCatch(pokemons)}/>
+            <Pokemon key={pokemon.name} pokemons={pokemon}/>
           </table>
         ))
     }
