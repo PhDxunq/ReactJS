@@ -1,24 +1,23 @@
 import React, { useContext } from "react";
 import PokemonContext from "./PokemonContext";
-import Button from "react";
 
-const CatchPokemon = ({id,image,catchRate,name}) => {
+const CatchPokemon = ({pokemons}) => {
     const context = useContext(PokemonContext);
     const handleCatch = () => {
         alert("Tung bóng");
         const index = Math.floor(Math.random() * 100);
-        if (index <= catchRate) {
-            alert("Bắt thành công " + name);
-            context.setCaughtPokemons([
+        if (index <= pokemons.catchRate) {
+            alert("Bắt thành công " + pokemons.name);
+            context.setcaughtPokemons([
                 ...context.caughtPokemons,
-                { id: id, name: name, image: image, catchRate: catchRate }
+                pokemons
             ])
-            context.setPokeballs(context.pokeballs - 1);
+            context.setpokeballs(context.pokeballs - 1);
             return true;
         }
         else {
-            alert("Bắt thất bại " + name);
-            context.setPokeballs(context.pokeballs - 1);
+            alert("Bắt thất bại " + pokemons.name);
+            context.setpokeballs(context.pokeballs - 1);
             return false;
         }
 

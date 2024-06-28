@@ -1,40 +1,60 @@
-import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Pokemon from './Pokemon';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import pikachuImage from './image/pikachu.png';
+import raichuImage from './image/raichu.png';
+import mewtwoImage from './image/meotwo.png';
 import PokemonList from './PokemonList';
-import CatchPokemon from './CatchPokemon';
 import PokemonContext from './PokemonContext';
+import CatchPokemon from './CatchPokemon';
 import Pokedex from './Pokedex';
-import { NavLink, Router, Route, Routes } from 'react-router-dom';
+
 
 function App() {
   const [pokemons, setPokemons] = useState([
-    { id: 1, name: 'Pikachu', image: 'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/025.png', catchRate: 65 },
-    { id: 2, name: 'Raichu', image: 'https://static.pokemonpets.com/images/monsters-images-800-800/26-Raichu.webp', catchRate: 45 },
-    { id: 3, name: 'MewTwo', image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full//150.png', catchRate: 5 }
-  ])
-  const [caughtPokemons, setCaughtPokemons] = useState([]);
-  const [pokeballs, setPokeballs] = useState(50);
+    { id: 1, name: 'Pikachu', image: pikachuImage , catchRate: 65 },
+    { id: 2, name: 'Raichu', image: raichuImage, catchRate: 45 },
+    { id: 3, name: 'Mewtwo', image: mewtwoImage, catchRate: 5 }
+    ]);
+
+  const [caughtPokemons, setcaughtPokemons] = useState([]);
+  const [pokeballs, setpokeballs] = useState(50);
+  
+
   return (
-    <PokemonContext.Provider value={{ pokemons, setPokemons, caughtPokemons, setCaughtPokemons, pokeballs, setPokeballs }}>
-      <div style={{ padding: '10px' }}>
-        <div style={{ padding: '10px' }}>
-          <span>Pokemon React App</span>
-          <NavLink style={{ margin: '10px', fontSize:'30px' }} to='/'>List Pokemon</NavLink>
-          <NavLink style={{ margin: '10px', fontSize:'30px' }} to='/Pokedex'>Pokedex</NavLink>
+    <PokemonContext.Provider value={{ pokemons, setPokemons, caughtPokemons, setcaughtPokemons, pokeballs, setpokeballs }} >
+      <Router>
+        <div className='container-fluid'>
+        <div >
+          <nav>
+          <ul className='d-flex'>
+            <li>
+              <h2>Pokemon React App</h2>
+            </li>
+            <li>
+              <Link to='/'>Pokemon</Link>
+            </li>
+            <li>
+              <Link to='/Pokedex'>Pokedex</Link>
+            </li>
+          </ul>
+          </nav>
         </div>
-        <div className='showing'>
-          <div>Total Pokemon: {pokemons.length}</div>
-          <div>Pokemon Caught: {caughtPokemons.length}</div>
-          <div>Pokeballs Remaining: {pokeballs}</div>
+        <div className='row'>
+          <div className='col-4 d-flex justify-content-center align-items-center '>
+                <p className='pd-20'>Total Pokemon: {pokemons.length}</p>
+                <p className='pd-20'>Pokemon Caught: {caughtPokemons.length}</p>
+                <p className='pd-20'>Total Pokeballs: {pokeballs}</p>
+          </div>
         </div>
-        <div style={{ display: 'inline-block' }}>
-          <Routes >
-            <Route path='/' element={<PokemonList></PokemonList>}></Route>
-            <Route path='Pokedex' element={<Pokedex></Pokedex>}></Route>
+          <Routes>
+              <Route path="/" element={<PokemonList></PokemonList>}/>
+              <Route path="Pokedex" element={<Pokedex />} />
           </Routes>
         </div>
-      </div>
+      </Router>
     </PokemonContext.Provider>
   );
 }

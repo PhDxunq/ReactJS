@@ -1,8 +1,11 @@
 import './App.css';
 import { useState } from 'react';
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Characters from './Characters';
 import SaveCharacter from './SaveCharacter';
+
+
 function App() {
   const [characters, setCharacters] = useState([
     { id: 1, name: 'Monkey D. Luffy', bounty: '1,500,000,000' },
@@ -17,28 +20,31 @@ function App() {
     bounty: ""
   });
   return (
-    <>
-      <SaveCharacter prop={{ characters, setCharacters,updateCharacter,setUpdateCharacter}}></SaveCharacter>
+    <div className='container'>
+      <h2>Add/Edit Character</h2> 
+      <SaveCharacter characters = {characters} setCharacters = {setCharacters}  updateCharacter = {updateCharacter} setUpdateCharacter={setUpdateCharacter}  ></SaveCharacter>
       <h2>One Piece Characters</h2>
-
-        <table>
-          <th>
-            <tr>
-              <td sx={{ width: "10%" }}>ID</td>
-              <td sx={{ width: "35%", textAlign: "center" }}>Name</td>
-              <td sx={{ width: "35%", textAlign: "center" }}>Bounty</td>
-              <td sx={{ width: "20%", textAlign: "center" }}>Actions</td>
-            </tr>
-          </th>
-        </table>
-      {characters.map((item) => {
-        return (
-          <>
-              <Characters prop={{item,setUpdateCharacter}}></Characters>
-          </>
-        )
-      })}
-    </>
+      <table className='table table-striped w-75'>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Bounty</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+          characters.map((character) => {
+          return (
+            <>
+              <Characters key={character.id} characters={character} updateCharacter = {updateCharacter} setUpdateCharacter={setUpdateCharacter} />
+            </>
+          )
+        })}
+        </tbody>
+      </table>
+    </div>
   )
 }
 export default App;

@@ -1,24 +1,17 @@
 import React from "react";
 
-const Characters = (props) => { 
-    const character = props.prop.item;
+const Characters = ({characters,setUpdateCharacter}) => { 
     const fillData = () => {
-        props.prop.setUpdateCharacter(props.prop.item);
+        setUpdateCharacter(characters);
     }
     return (
         <>
-        
-            <table>
-                <tbody>
-                    <tr>
-                        <td sx={{ width: "10%" }}>{character.id}</td>
-                        <td sx={{ width: "35%", textAlign: "center" }}>{character.name}</td>
-                        <td sx={{ width: "35%", textAlign: "center" }}>{character.bounty}</td>
-                        <td sx={{ width: "20%", textAlign: "center" }}><button onClick={() => fillData()} variant="contained">Update</button></td>
-                    </tr>
-                </tbody>
-            </table>
-    
+            <tr>
+                <td>{characters.id}</td>
+                <td>{characters.name}</td>
+                <td>{characters.bounty}</td>
+                <td><button class="btn btn-primary"  onClick={() => fillData()} variant="contained">Update</button></td>
+            </tr>
         </>
     )
 }

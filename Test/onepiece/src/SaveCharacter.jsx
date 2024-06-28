@@ -1,59 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const SaveCharacter = (props) => {
-    const characters = props.prop;
-    const updateCharacter = props.prop.updateCharacter;
+    const { characters, setCharacters, updateCharacter,  setUpdateCharacter } = props;
+
+
     const toSaveCharacter = (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const bounty = event.target.bounty.value;
-        let id = event.target.id.value;
-        if(id === "0"){
-            id = characters.characters.length + 1;
+        if (updateCharacter.id === 0) {
+           const id = characters.length + 1;
             const characterObject = {
                 id: id,
                 name: name,
                 bounty: bounty
-            }
-            characters.setCharacters([...characters.characters,characterObject]);
-        }
-        else{
-            for(const index in characters.characters){
-                const item = characters.characters[index];
-                if(item["id"].toString() === id.toString()){
-                    characters.characters[index] = {
-                        id: id,
-                        name: name,
-                        bounty: bounty
+            };
+            setCharacters([...characters, characterObject]);
+            alert("Thêm thành công");
+        } else {
+            const id  = updateCharacter.id;
+            const newCharacters = characters.map((item) =>
+                {
+                    if (item.id === id) {
+                        return {...item, name: name, bounty: bounty };
                     }
+                    return item;
                 }
-            }
-            console.log(characters.characters);
+            );
+            setCharacters(newCharacters);
+            alert("Cập nhật thành công");
         }
-        props.prop.setUpdateCharacter({
+        setUpdateCharacter({
             id: 0,
             name: "",
             bounty: ""
         });
         document.getElementById("form").reset();
-    }
+    };
+
     return (
-        <>
-            <h2>Add/Edit Character</h2>
-            <form onSubmit={(event) => toSaveCharacter(event)} id="form">
-                <label>ID</label>
+        <div>
+            <form onSubmit={toSaveCharacter} id="form">
+                <div >
+                    <label>ID</label>
+                    <br />
+                    <input  className="w-75 " type="number" placeholder="0" name="id" value={updateCharacter?.id || 0} readOnly />
+                </div>
+                <div>
+                    <label>Name</label>
+                    <br />
+                    <input className="w-75" type="text" placeholder="Enter character name" name="name" defaultValue={updateCharacter?.name || ''} required />
+                </div>
+                <div>
+                    <label>Bounty</label>
+                    <br />
+                    <input className="w-75" type="text" placeholder="Enter character bounty" name="bounty" defaultValue={updateCharacter?.bounty || ''} />
+                </div>
                 <br />
-                <input type="number" placeholder="0" name="id"  value={updateCharacter.id}/>
-                <br />
-                <label>Name</label>
-                <br />
-                <input type="text" placeholder="Enter character name" name="name" defaultValue={updateCharacter.name} required/>
-                <br />
-                <label>Bounty</label>
-                <br />
-                <input type="text" placeholder="Enter character bounty" name="bounty" defaultValue={updateCharacter.bounty}/>
-                <br />
-                <input type="submit" value="SAVE" />
-            </form></>
-    )
-}
+                <div>
+                    <button className="btn btn-primary" type="submit">SAVE</button>
+                </div>
+            </form>
+            
+        </div>
+    );
+};
+
 export default SaveCharacter;
